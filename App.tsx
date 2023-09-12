@@ -7,7 +7,7 @@ import { ClerkProvider } from "@clerk/clerk-expo";
 import { tokenCache } from "./cache";
 
 // Your publishable Key goes here
-const publishableKey = "pk_XXXXXXXXXXXXXXXXXXX";
+const publishableKey = "pk_test_Z3Jvd24tc25pcGUtOTMuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

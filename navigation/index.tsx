@@ -13,7 +13,8 @@ import VerifyCodeScreen from "../screens/VerifyCodeScreen";
 import MyProfileScreen from "../screens/MyProfileScreen";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import { ClerkLoaded, useUser } from "@clerk/clerk-expo";
+import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/clerk-expo";
+import { Text, View } from "react-native";
 
 export default function Navigation() {
   return (
@@ -34,34 +35,51 @@ const RootNavigator = () => {
   const { isSignedIn } = useUser();
 
   return (
-    <ClerkLoaded>
-      <Stack.Navigator>
-        {isSignedIn ? (
-          <Stack.Screen
-            name="MyProfile"
-            component={MyProfileScreen}
-            options={{ title: "MyProfile" }}
-          />
-        ) : (
-          <>
+    <>
+      <ClerkLoading>
+        <View
+          style={{
+            backgroundColor: "black",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white" }}>
+            This is the blank screen after the splash and before the initial
+            screen., If you remove this whole thing with its wrapper ClerkLoading, a white screen will appear for 1-2 seconds.
+          </Text>
+        </View>
+      </ClerkLoading>
+      <ClerkLoaded>
+        <Stack.Navigator>
+          {isSignedIn ? (
             <Stack.Screen
-              name="SignUp"
-              component={SignUpScreen}
-              options={{ title: "Sign Up" }}
+              name="MyProfile"
+              component={MyProfileScreen}
+              options={{ title: "MyProfile" }}
             />
-            <Stack.Screen
-              name="SignIn"
-              component={SignInScreen}
-              options={{ title: "Sign In" }}
-            />
-            <Stack.Screen
-              name="VerifyCode"
-              component={VerifyCodeScreen}
-              options={{ title: "Sign Up" }}
-            />
-          </>
-        )}
-      </Stack.Navigator>
-    </ClerkLoaded>
+          ) : (
+            <>
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpScreen}
+                options={{ title: "Sign Up" }}
+              />
+              <Stack.Screen
+                name="SignIn"
+                component={SignInScreen}
+                options={{ title: "Sign In" }}
+              />
+              <Stack.Screen
+                name="VerifyCode"
+                component={VerifyCodeScreen}
+                options={{ title: "Sign Up" }}
+              />
+            </>
+          )}
+        </Stack.Navigator>
+      </ClerkLoaded>
+    </>
   );
 };
